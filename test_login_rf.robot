@@ -24,7 +24,7 @@ ${HEIGHTINPUT}      xpath=//*[@name='height']
 ${AGEINPUT}     xpath=//*[@name='age']
 ${MAIN POSITION INPUT}      xpath=//*[@name='mainPosition']
 ${ADD LINK TO YOUTUBE BUTTON}       xpath=//*[@aria-label='Add link to Youtube']
-${YOUTUBE LINK INPUT}             xpath=//*[@aria-label='Add link to Youtube']
+${YOUTUBE LINK INPUT}             xpath=//*[@name='webYT[0]']
 ${MAIN CLUB INPUT}      xpath=//*[@name='club']
 ${ACHIEVEMENTS INPUT}       xpath=//*[@name='achievements']
 ${SECOND POSITION}      xpath=//*[@name='secondPosition']
@@ -34,9 +34,10 @@ ${CHOOSE LEG BUTTON}        xpath=//*[@id = 'mui-component-select-leg']
 ${CHOOSE RIGHT LEG}     xpath=//*[@data-value='right']
 ${CHOOSE DISTRICT BUTTON}       xpath=//*[@id='mui-component-select-district']
 ${CHOOSE DISTRICT}      xpath=//*[@data-value='lubelskie']
-${MAIN PAGE BUTTON}     xpath=//*[@id="__next"]/div[1]/div/div/div/ul[1]/div[1]
+${MAIN PAGE BUTTON}     xpath=//*[(text()='Main page')]         #xpath=//*[@id="__next"]/div[1]/div/div/div/ul[1]/div[1]
 ${CLEAR FORM BUTTON}        xpath=//*[contains(@class, 'MuiButton-containedSecondary')]
-${LAST ADDED PLAYER}        xpath=//div[3]/div/div/a[1]/button/span[1]
+${LAST ADDED PLAYER}        xpath=//*[@id="__next"]/div[1]/main/div[3]/div[3]/div/div/a[1]/button
+${SUCESS CONTAINER}     xpath=//*[@id="__next"]/div[2]/div
 
 *** Test Cases ***
 Login to the system
@@ -146,14 +147,16 @@ Fill in form
     Click element       ${CHOOSE DISTRICT}
     Click element       ${PLAYER LANGUAGE BUTTON}
     Input text      ${PLAYER LANGUAGE INPUT}        English
-    #Click element       ${ADD LINK TO YOUTUBE BUTTON}
-    #Wait Until Element Is Visible    ${YOUTUBE LINK INPUT}
-    #Input text      ${YOUTUBE LINK INPUT}       none
+    Click element       ${ADD LINK TO YOUTUBE BUTTON}
+    Wait Until Element Is Visible    ${YOUTUBE LINK INPUT}
+    Input text      ${YOUTUBE LINK INPUT}       none
     Click element       ${SUBMIT BUTTON ADD PLAYER}
+    Wait Until Element Is Visible       ${SUCESS CONTAINER}
     Click element       ${MAIN PAGE BUTTON}
 Assert Check last added player
     Wait Until Element Is Visible       ${PAGELOGO}
-    Should Be Equal     ${LAST ADDED PLAYER}        Marian Drozd
+    Element Text Should Be      ${LAST ADDED PLAYER}        MARIAN DROZD
+    # Should Be Equal     ${LAST ADDED PLAYER}        Marian Drozd
 Fill in part of the form
     Wait Until Element Is Visible       ${SUBMIT BUTTON ADD PLAYER}
     Input text      ${PLAYER EMAIL INPUT}       marian@amorki.pl
