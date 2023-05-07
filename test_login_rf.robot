@@ -5,7 +5,7 @@ Library  SeleniumLibrary
 Documentation    Suite description #automated tests for scout website
 
 *** Variables ***
-${LOGIN URL}      https://scouts-test.futbolkolektyw.pl/en
+${LOGIN URL}      https://scouts.futbolkolektyw.pl/en/
 ${BROWSER}        Chrome
 ${SIGNINBUTTON}     xpath=//*[(text()='Sign in')]
 ${EMAILINPUT}       xpath=//*[@id='login']
@@ -171,7 +171,7 @@ class TestLoginPage(unittest.TestCase):
     def setUp(self):
         os.chmod(DRIVER_PATH, 755)
         self.driver = webdriver.Chrome(executable_path=DRIVER_PATH)
-        self.driver.get("https://scouts-test.futbolkolektyw.pl/en")
+        self.driver.get("https://scouts.futbolkolektyw.pl/en/")
         self.driver.fullscreen_window()
         self.driver.implicitly_wait(IMPLICITLY_WAIT)
         super(TestLoginPage, self).setUp(self)
